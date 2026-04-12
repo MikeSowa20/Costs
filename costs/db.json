@@ -1,0 +1,57 @@
+{
+  "projects": [
+    {
+      "name": "Casamento com a Allana",
+      "budget": "50000",
+      "category": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "cost": 0,
+      "services": [],
+      "id": "-64iKQMXPXc"
+    },
+    {
+      "name": "Matar o Vitor Veiga",
+      "budget": 1000,
+      "category": {
+        "id": "4",
+        "name": "Laboratorio"
+      },
+      "cost": 0,
+      "services": [],
+      "id": "A5TFYmicMR4"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Infra"
+    },
+    {
+      "id": "2",
+      "name": "Desenvolvimento"
+    },
+    {
+      "id": "3",
+      "name": "Obras"
+    },
+    {
+      "id": "4",
+      "name": "Laboratorio"
+    },
+    {
+      "id": "5",
+      "name": "Arquivos"
+    },
+    {
+      "id": "6",
+      "name": "Reforma"
+    },
+    {
+      "id": "7",
+      "name": "Desing"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
