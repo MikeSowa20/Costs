@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react"; // IMPORTANTE: Importe o useEffect
+import { useState, useEffect } from "react";
 import Container from "../layouts/container";
 import Input from "../form/input";
 import SubmitButton from "../form/submitButton";
 import style from './Login.module.css';
-import { Link, useLocation, useNavigate } from "react-router-dom"; // Importe o useNavigate
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Message from "../layouts/message";
+
+
+//npx json-server@0.17.4 --watch db.json --port 5000
 
 function Login() {
     const location = useLocation();

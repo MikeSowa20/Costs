@@ -10,7 +10,7 @@
       "cost": 0,
       "services": [],
       "userId": "aWRusXE",
-      "id": 3
+      "id": "3"
     }
   ],
   "logins": [
@@ -41,6 +41,13 @@
       "quantity": 0,
       "password": "123",
       "id": "aWRusXE"
+    },
+    {
+      "username": "joao",
+      "email": "joao@gmal.com",
+      "quantity": 0,
+      "password": "123",
+      "id": "Unq3mFRN1wg"
     }
   ],
   "categories": [
