@@ -1,21 +1,29 @@
-import{Link} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
+import Container from './container';
 
-import Container from './container'
+import styles from './navBar.module.css';
+import logo from '../../img/costs_logo.png';
 
-import styles from './navBar.module.css'
-import logo from '../../img/costs_logo.png'
+function NavBar() {
+    const navigate = useNavigate();
 
-function NavBar(){
-    return(
-        <nav className={styles.navbar}>
-                    
-                <Container>
-                    <Link to="/"> 
-                        <img src={logo} alt='Costs'/> 
-                    </Link>
+    const user = localStorage.getItem("user");
+
+    function handleLogout() {
+        localStorage.removeItem("user");
+        navigate("/login"); // Redirecionamento suave do React Router
+    }
+
+    return (
+        <nav className={styles.navbar}>      
+            <Container>
+                <Link to="/home"> 
+                    <img src={logo} alt='Costs' /> 
+                </Link>
+                {user && (
                     <ul className={styles.list}>
                         <li className={styles.item}>
-                            <Link to="/">Home</Link>
+                            <Link to="/home">Home</Link>
                         </li>
                         <li className={styles.item}>
                             <Link to="/projects">Projects</Link>
@@ -26,9 +34,16 @@ function NavBar(){
                         <li className={styles.item}>
                             <Link to="/contact">Contact</Link>
                         </li>
+                        <li className={styles.item}>
+                            <span className={styles.logout} onClick={handleLogout}>
+                                Logout
+                            </span>
+                        </li>
                     </ul>
-                </Container>
+                )}
+            </Container>
         </nav>
-    )
+    );
 }
-export default NavBar
+
+export default NavBar;

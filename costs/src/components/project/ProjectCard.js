@@ -17,7 +17,7 @@ function ProjectCard({id, name, budget, category, handleRemove}){
                 <span>Orçamento:</span>R${budget}
             </p>
             <p className={style.category_text}>
-                <span className={`${style[category.toLowerCase()]}`}></span> {category}
+                <span className={`${style[category?.toLowerCase()]}`}></span> {category}
             </p>
             <div className={style.project_card_action}>
                 <Link to={`/project/${id}`}><BsPencilFill/> Editar</Link>   

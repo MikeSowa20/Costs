@@ -1,26 +1,39 @@
 {
   "projects": [
     {
-      "name": "Casamento com a Allana",
-      "budget": "50000",
-      "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
-      },
-      "cost": 0,
-      "services": [],
-      "id": "-64iKQMXPXc"
-    },
-    {
-      "name": "Matar o Vitor Veiga",
+      "name": "Mike vitor",
       "budget": 1000,
       "category": {
-        "id": "4",
-        "name": "Laboratorio"
+        "id": "7",
+        "name": "Desing"
       },
       "cost": 0,
       "services": [],
-      "id": "A5TFYmicMR4"
+      "userId": "gB9r3fa",
+      "id": 2
+    }
+  ],
+  "logins": [
+    {
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "quantity": 0,
+      "password": "123",
+      "id": "Clynz-Mdw-I"
+    },
+    {
+      "username": "admin2",
+      "email": "admin2@gmail.com",
+      "quantity": 0,
+      "password": "123",
+      "id": "lbAw6XZ"
+    },
+    {
+      "username": "vitor",
+      "email": "vitor@gmail.com",
+      "quantity": 0,
+      "password": "123",
+      "id": "gB9r3fa"
     }
   ],
   "categories": [

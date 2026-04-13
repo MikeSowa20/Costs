@@ -5,6 +5,9 @@ import Home from './components/pages/home';
 import NewProject from './components/pages/newproject';
 import Projects from './components/pages/projects';
 import Project from './components/pages/project';
+import Login from './components/login/login';
+import Signup from './components/login/signup';
+import ProtectedRoute from './components/login/ProtectRoute';
 
 import Container from './components/layouts/container';
 import NavBar from './components/layouts/navBar'
@@ -16,13 +19,19 @@ function App() {
     <NavBar/>
     <Container customClass="min-heigth" >
         <Routes>
-          <Route exact  path="/" element={ <Home /> } />
+          <Route path="/login" element={ <Login /> } />
+          <Route path="/signup" element={ <Signup /> } />
+          <Route exact  path="/" element={ <Login /> } />
+          
           <Route path="/company" element={ <Company /> } />
-          <Route path="/contact" element={ <Contact /> } />
-          <Route path="/home" element={ <Home /> } />
-          <Route path="/projects" element={ <Projects /> } />
-          <Route path="/newproject" element={ <NewProject /> } />
-          <Route path="/project/:id" element={ <Project /> } />
+          
+          <Route element={ <ProtectedRoute /> }>
+            <Route path="/contact" element={ <Contact /> } />
+            <Route path="/home" element={ <Home /> } />
+            <Route path="/projects" element={ <Projects /> } />
+            <Route path="/newproject" element={ <NewProject /> } />
+            <Route path="/project/:id" element={ <Project /> } />
+          </Route>
         </Routes>
     </Container>
     <Footer/>

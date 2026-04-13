@@ -1,38 +1,48 @@
-import {useNavigate} from 'react-router-dom'
-import style from './newproject.module.css'
-import ProjectForm from '../project/ProjectForm'
+import { useNavigate } from 'react-router-dom';
+import style from './newproject.module.css';
+import ProjectForm from '../project/ProjectForm';
+import { useState } from 'react';
 
-function NewProject(){
+function NewProject() {
+    const navigate = useNavigate();
+    const [message, setMessage] = useState("");
 
-    const navigate = useNavigate()
+    function createPost(project) {
+        // Inicializa custo e serviços
+        project.cost = 0;
+        project.services = [];
 
-        function createPost(project){
-            // intialize cost and services
-            project.cost = 0
-            project.services = []
+        // 1. Pega o texto do localStorage e transforma em Objeto JavaScript
+        const userString = localStorage.getItem("user");
+        const loggedUser = JSON.parse(userString);
 
-            fetch("http://localhost:5000/projects",{
-                method: "POST",
-                headers:{
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(project),
-            })
-            .then( (resp) => resp.json())
-            .then((data) => {
-                console.log(data)
-                // redirect
-                navigate("/projects", {state: { message: "Projeto criado com sucesso!" }})
-            })
-            .catch(err => console.log(err))
-        }
-    return(
+        // 2. Adiciona o ID do usuário logado dentro do projeto
+        project.userId = loggedUser.id;
+
+        fetch("http://localhost:5000/projects", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // 3. Agora enviamos o projeto que já contém o userId
+            body: JSON.stringify(project), 
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            console.log(data);
+            // Redireciona com mensagem de sucesso
+            navigate("/projects", { state: { message: "Projeto criado com sucesso!" } });
+        })
+        .catch(err => console.log(err));
+    }
+
+    return (
         <div className={style.newproject_container}>
             <h1>Criar Projeto</h1>
-            <p>Crie seu projeto para depois adiconar serviços!</p>
-            <ProjectForm btnText="Criar Projeto" handleSubmit={createPost}/>
-
+            <p>Crie seu projeto para depois adicionar serviços!</p>
+            <ProjectForm btnText="Criar Projeto" handleSubmit={createPost} />
         </div>
-    )
+    );
 }
-export default NewProject
+
+export default NewProject;

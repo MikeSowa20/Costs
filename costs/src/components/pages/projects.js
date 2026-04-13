@@ -1,37 +1,42 @@
-import Message from "../layouts/message"
-import { useLocation } from 'react-router-dom'
-import style from './projects.module.css'
-import Container from '../layouts/container.js'
-import LinkButton from "../layouts/linkButton.js"
-import ProjectCard from "../project/ProjectCard.js"
-import { useState, useEffect } from "react"
-import Loading from "../layouts/loading.js"
+import Message from "../layouts/message";
+import { useLocation } from 'react-router-dom';
+import style from './projects.module.css';
+import Container from '../layouts/container.js';
+import LinkButton from "../layouts/linkButton.js";
+import ProjectCard from "../project/ProjectCard.js";
+import { useState, useEffect } from "react";
+import Loading from "../layouts/loading.js";
 
 function Projects() {
-    const [projects, setProjects] = useState([])
-    const [removeLoading, setRemoveLoading] = useState(false)
-    const [projectMessage, setProjectMessage] = useState()
+    const [projects, setProjects] = useState([]);
+    const [removeLoading, setRemoveLoading] = useState(false);
+    const [projectMessage, setProjectMessage] = useState();
 
-    const location = useLocation()
-    let message = ""
+    const location = useLocation();
+    let message = "";
     if (location.state) {
-        message = location.state.message
+        message = location.state.message;
     }
 
     useEffect(() => {
-        fetch('http://localhost:5000/projects', {
+        // 1. Pega os dados do usuário logado
+        const userString = localStorage.getItem("user");
+        const loggedUser = JSON.parse(userString);
+
+        // 2. Modifica a URL para filtrar pelo userId do usuário logado
+        fetch(`http://localhost:5000/projects?userId=${loggedUser.id}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
             },
         }).then(resp => resp.json())
         .then(data => {
-            console.log(data)
-            setProjects(data)
-            setRemoveLoading(true)
+            console.log(data);
+            setProjects(data);
+            setRemoveLoading(true);
         })
-        .catch((err) => console.log(err))
-    }, [])
+        .catch((err) => console.log(err));
+    }, []);
 
     function removeProjects(id) {
         fetch(`http://localhost:5000/projects/${id}`, {
@@ -42,10 +47,10 @@ function Projects() {
         })
         .then(resp => resp.json())
         .then(data => {
-            setProjects(projects.filter((project) => project.id !== id))
-            setProjectMessage("Projeto removido com sucesso!")
+            setProjects(projects.filter((project) => project.id !== id));
+            setProjectMessage("Projeto removido com sucesso!");
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     }
 
     return (
@@ -77,7 +82,7 @@ function Projects() {
                 )}
             </Container>
         </div>
-    )
+    );
 }
 
-export default Projects
+export default Projects;

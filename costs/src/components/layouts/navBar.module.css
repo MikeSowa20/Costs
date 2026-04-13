@@ -17,11 +17,14 @@
     margin-right: 1em;
 }
 
-.item a {
+.item a,
+.item span {
     color: #FFF;
     text-decoration: none;
+    cursor: pointer;
 }
 
-.item a:hover {
+.item a:hover,
+.item span:hover {
     color: #FFBB33;
 }
