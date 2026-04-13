@@ -11,6 +11,11 @@ function Projects() {
     const [projects, setProjects] = useState([]);
     const [removeLoading, setRemoveLoading] = useState(false);
     const [projectMessage, setProjectMessage] = useState();
+    const [logins, setLogins] = useState([]); // Guarda os usuários
+
+    // Pega o usuário do localStorage
+    const userString = localStorage.getItem("user");
+    const loggedUser = JSON.parse(userString);
 
     const location = useLocation();
     let message = "";
@@ -18,24 +23,33 @@ function Projects() {
         message = location.state.message;
     }
 
+   
     useEffect(() => {
-        // 1. Pega os dados do usuário logado
-        const userString = localStorage.getItem("user");
-        const loggedUser = JSON.parse(userString);
+        let url = `http://localhost:5000/projects?userId=${loggedUser.id}`;
+        if (loggedUser.username === "admin") {
+            url = "http://localhost:5000/projects";
+            
+            //Se for admin, busca a lista de logins
+            fetch('http://localhost:5000/logins')
+            .then(resp => resp.json())
+            .then(data => setLogins(data))
+            .catch((err) => console.log(err));
+        }
 
-        // 2. Modifica a URL para filtrar pelo userId do usuário logado
-        fetch(`http://localhost:5000/projects?userId=${loggedUser.id}`, {
+
+        fetch(url, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
             },
-        }).then(resp => resp.json())
+        })
+        .then(resp => resp.json())
         .then(data => {
-            console.log(data);
             setProjects(data);
             setRemoveLoading(true);
         })
         .catch((err) => console.log(err));
+        
     }, []);
 
     function removeProjects(id) {
@@ -56,7 +70,7 @@ function Projects() {
     return (
         <div className={style.project_container}>
             <div className={style.title_container}>
-                <h1>Meus Projetos</h1>
+                <h1>{loggedUser.username === "admin" ? "Todos os Projetos" : "Meus Projetos"}</h1>
                 <LinkButton to="/newproject" text="Criar projeto" />
             </div>
             {message && <Message msg={message} type="success" />}
@@ -64,16 +78,27 @@ function Projects() {
             
             <Container customClass="start">
                 {projects.length > 0 &&
-                    projects.map((project) => (
-                        <ProjectCard
-                            name={project.name}
-                            budget={project.budget}
-                            category={project.category?.name}
-                            id={project.id}
-                            key={project.id}
-                            handleRemove={removeProjects}
-                        />
-                    ))}
+                    projects.map((project) => {
+                        // Lógica para descobrir o nome do dono do projeto (se for admin)
+                        let userName = null;
+                        if (loggedUser.username === "admin" && logins.length > 0) {
+                            const dono = logins.find((usuario) => usuario.id === project.userId);
+                            userName = dono ? dono.username : "Desconhecido";
+                        }
+
+                        return (
+                            <ProjectCard
+                                name={project.name}
+                                budget={project.budget}
+                                category={project.category?.name}
+                                id={project.id}
+                                key={project.id}
+                                handleRemove={removeProjects}
+                                admin={loggedUser.username === "admin"? true : false}
+                                user={loggedUser.username === "admin"? userName : null} 
+                            />
+                        )
+                    })}
                 
                 {!removeLoading && <Loading />}
                 

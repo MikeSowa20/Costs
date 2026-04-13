@@ -1,16 +1,16 @@
 {
   "projects": [
     {
-      "name": "Mike vitor",
-      "budget": 1000,
+      "name": "Casamento com a Allana(Mike)",
+      "budget": "100000",
       "category": {
-        "id": "7",
-        "name": "Desing"
+        "id": "2",
+        "name": "Desenvolvimento"
       },
       "cost": 0,
       "services": [],
-      "userId": "gB9r3fa",
-      "id": 2
+      "userId": "aWRusXE",
+      "id": 3
     }
   ],
   "logins": [
@@ -34,6 +34,13 @@
       "quantity": 0,
       "password": "123",
       "id": "gB9r3fa"
+    },
+    {
+      "username": "mike",
+      "email": "mikesowa20@gmail.com",
+      "quantity": 0,
+      "password": "123",
+      "id": "aWRusXE"
     }
   ],
   "categories": [

@@ -2,7 +2,7 @@ import style from './ProjectCard.module.css'
 import {BsPencil, BsFillTrashFill, BsPencilFill} from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 
-function ProjectCard({id, name, budget, category, handleRemove}){
+function ProjectCard({id, name, budget, category, handleRemove, admin,user}){
     const remove =(e) =>{
         e.preventDefault()
         handleRemove(id)
@@ -13,6 +13,11 @@ function ProjectCard({id, name, budget, category, handleRemove}){
             <h4>
                 {name}
             </h4>
+            {admin && (
+                <p className={style.admin_text}>
+                    <span>Dono do projeto:</span> {user}
+                </p>
+            )}
             <p>
                 <span>Orçamento:</span>R${budget}
             </p>
